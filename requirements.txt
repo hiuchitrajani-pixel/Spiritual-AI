@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic
+pandas
+numpy
+sentence-transformers
+faiss-cpu
+langchain
+langchain-community
+langchain-groq
+openai
