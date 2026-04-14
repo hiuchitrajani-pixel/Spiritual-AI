@@ -6,7 +6,16 @@ from sentence_transformers import SentenceTransformer
 
 
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-embedder = SentenceTransformer(EMBEDDING_MODEL)
+embedder = None  # Lazy load the model
+
+
+def get_embedder():
+    global embedder
+    if embedder is None:
+        print("Loading sentence transformer model...")
+        embedder = SentenceTransformer(EMBEDDING_MODEL)
+        print("Model loaded successfully!")
+    return embedder
 
 
 def load_book_store(book: str):
@@ -27,6 +36,7 @@ def load_book_store(book: str):
 def search_book(book: str, query: str, top_k: int = 5):
     index, metadata = load_book_store(book)
 
+    embedder = get_embedder()
     query_vector = embedder.encode([query], convert_to_numpy=True).astype("float32")
     distances, indices = index.search(query_vector, top_k)
 
