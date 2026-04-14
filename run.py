@@ -9,9 +9,9 @@ sys.path.insert(0, backend_dir)
 # Change to BACKEND directory
 os.chdir(backend_dir)
 
-# Import and run the FastAPI app
-from app.main import app
+# Import and run uvicorn directly
 import uvicorn
+from app.main import app
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
